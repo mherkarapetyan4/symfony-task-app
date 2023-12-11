@@ -1,0 +1,14 @@
+controllers:
+    resource: ../src/Module/
+    type: annotation
+
+kernel:
+    resource: ../src/Kernel.php
+    type: annotation
+
+swagger:
+    path: /api/v1/docs.html
+    controller: App\Controller\UserController::profile
+    methods: [GET]
+api_login_check:
+    path: /api/login_check

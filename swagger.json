@@ -1,0 +1,1000 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My app",
+        "version": "0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/"
+        }
+    ],
+    "paths": {
+        "/api/v1/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Auth login",
+                "operationId": "websites-user-create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "username",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "user_1"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageOkSuccessRequestObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/comment/task/{id}": {
+            "get": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Comment list by task",
+                "operationId": "comment-by-task-index",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/general--page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/general--limit"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "data"
+                                    ],
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CommentDataObject"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequestObject"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedObject"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerErrorObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/comment/user": {
+            "get": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Comment list by user",
+                "operationId": "comment-by-user-index",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/general--page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/general--limit"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "data"
+                                    ],
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CommentDataObject"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequestObject"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedObject"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerErrorObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/comment": {
+            "post": {
+                "tags": [
+                    "Comment"
+                ],
+                "summary": "Comment",
+                "operationId": "comment-create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "message",
+                                    "parentId"
+                                ],
+                                "properties": {
+                                    "message": {
+                                        "type": "string",
+                                        "example": "Test Title"
+                                    },
+                                    "taskId": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageOkSuccessRequestObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/task/me": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Task list",
+                "operationId": "task-by-user-index",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/general--page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/general--limit"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "data"
+                                    ],
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TaskDataObject"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequestObject"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedObject"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerErrorObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/task": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Task list",
+                "operationId": "task-index",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/general--page"
+                    },
+                    {
+                        "$ref": "#/components/parameters/general--limit"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "required": [
+                                        "data"
+                                    ],
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TaskDataObject"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequestObject"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedObject"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerErrorObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Task",
+                "operationId": "task-create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "userId"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Test Title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Lorem..."
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageOkSuccessRequestObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/task/{id}": {
+            "get": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Get Task",
+                "operationId": "task-find-one",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "example": 12
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskDataObject"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequestObject"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedObject"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerErrorObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Task",
+                "operationId": "task-update",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "title",
+                                    "description",
+                                    "userId"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Test Title"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "Lorem..."
+                                    },
+                                    "userId": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageOkSuccessRequestObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Delete Task",
+                "operationId": "task-delete-one",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "example": 12
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/BadRequestObject"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedObject"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServerErrorObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Task"
+                ],
+                "summary": "Task status update",
+                "operationId": "task-status-update",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "isDone"
+                                ],
+                                "properties": {
+                                    "isDone": {
+                                        "type": "boolean",
+                                        "example": false
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MessageOkSuccessRequestObject"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CommentDataObject": {
+                "required": [
+                    "id",
+                    "message",
+                    "createdAt",
+                    "taskId"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "My Task"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "My task description"
+                    },
+                    "userId": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "isDone": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "completedAt": {
+                        "$ref": "#/components/schemas/DateObject"
+                    }
+                },
+                "type": "object"
+            },
+            "DateObject": {
+                "description": "Date",
+                "type": "string",
+                "example": "2023-12-12 12:12"
+            },
+            "EmailObject": {
+                "type": "string",
+                "example": "test@mail.com"
+            },
+            "GridObject": {
+                "required": [
+                    "count",
+                    "paginator"
+                ],
+                "properties": {
+                    "count": {
+                        "type": "integer",
+                        "example": 100
+                    },
+                    "paginator": {
+                        "required": [
+                            "limit",
+                            "page"
+                        ],
+                        "properties": {
+                            "limit": {
+                                "type": "integer",
+                                "example": 10
+                            },
+                            "page": {
+                                "type": "integer",
+                                "example": 1
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "JwtTokenObject": {
+                "required": [
+                    "token",
+                    "expiresAt"
+                ],
+                "properties": {
+                    "token": {
+                        "type": "string",
+                        "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.iJ3ZWJsYXRlM19pc3N1ZWRfYnkiLCJleHAiOjE2ODY0O.DgwOTQuNTcyNTM1LCJ1aWQiOjEsInJhbmQiOiIxNjgzODA5Njk0MTY3In0"
+                    },
+                    "expiresAt": {
+                        "properties": {
+                            "date": {
+                                "type": "string",
+                                "example": "2023-06-11 12:54:54.572535"
+                            },
+                            "timezone_type": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "timezone": {
+                                "type": "string",
+                                "example": "+00:00"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "PrimaryIdObject": {
+                "type": "integer",
+                "example": 1
+            },
+            "PrimaryUuidObject": {
+                "description": "uuid",
+                "type": "string",
+                "example": "a88417a8-946d-42e6-b973-49ddd61f694e"
+            },
+            "SortParameterObject": {
+                "description": "By default sort is asc",
+                "type": "string",
+                "default": "asc",
+                "enum": [
+                    "asc",
+                    "desc"
+                ]
+            },
+            "BadRequestObject": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Bad Request"
+                    },
+                    "message": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "example": "Something went wrong!"
+                        }
+                    },
+                    "code": {
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": 400
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "ForbiddenObject": {
+                "required": [
+                    "name",
+                    "message",
+                    "code",
+                    "status",
+                    "type"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Forbidden"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "You dont have access to this page"
+                    },
+                    "code": {
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": 401
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "MessageOkSuccessRequestObject": {
+                "required": [
+                    "message"
+                ],
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "OK"
+                    }
+                },
+                "type": "object"
+            },
+            "ServerErrorObject": {
+                "required": [
+                    "name",
+                    "message",
+                    "code",
+                    "status",
+                    "type"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Internal Server Error"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Something went wrong!"
+                    },
+                    "code": {
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": 500
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "UnauthorizedObject": {
+                "required": [
+                    "name",
+                    "message",
+                    "code",
+                    "status",
+                    "type"
+                ],
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Unauthorized"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Your request was made with invalid credentials."
+                    },
+                    "code": {
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "status": {
+                        "type": "integer",
+                        "example": 401
+                    },
+                    "type": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskDataObject": {
+                "required": [
+                    "id",
+                    "title",
+                    "description",
+                    "userId",
+                    "isDone",
+                    "completedAt"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "title": {
+                        "type": "string",
+                        "example": "My Task"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "My task description"
+                    },
+                    "userId": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "isDone": {
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "completedAt": {
+                        "$ref": "#/components/schemas/DateObject"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "parameters": {
+            "general--page": {
+                "name": "offset",
+                "in": "query",
+                "description": "The current page for the result set, defaults to *1*",
+                "schema": {
+                    "type": "integer",
+                    "default": 1
+                }
+            },
+            "general--limit": {
+                "name": "limit",
+                "in": "query",
+                "description": "The current limit for the result set, defaults to *10*",
+                "schema": {
+                    "type": "integer",
+                    "default": 10
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "Bearer"
+            }
+        }
+    }
+}
